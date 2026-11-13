@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- GLightbox CSS (ছবি পপ-আপ করে দেখার জন্য) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <!-- Google Fonts (Poppins for English & Hind Siliguri for Bangla) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f4f7fb;
+            color: #2c3e50;
+        }
+        .en-font {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Top Announcement Bar */
+        .top-bar {
+            background-color: #0b2545;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(11, 37, 69, 0.92), rgba(19, 64, 116, 0.88)),
+                        url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: white;
+            padding: 100px 0 90px;
+        }
+        .free-badge {
+            background: linear-gradient(45deg, #00b09b, #96c93d);
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 176, 155, 0.4);
+        }
+        /* Module Cards */
+        .module-card {
+            border: none;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(11, 37, 69, 0.12);
+        }
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        /* Initiative / Patron Box */
+        .patron-section {
+            background: linear-gradient(to right, #ffffff, #eef4fc);
+            border-left: 6px solid #0d6efd;
+            border-radius: 12px;
+        }
+        /* Gallery Styling */
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .gallery-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-card:hover img {
+            transform: scale(1.08);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(11, 37, 69, 0.92));
+            color: #fff;
+            padding: 25px 18px 18px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-card:hover .gallery-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- টপ বার (Top Announcement Bar) -->
+    <div class="top-bar py-2">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center">
+            <div>
+                <i class="bi bi-award-fill text-warning me-1"></i>
+                <span>আটপাড়া-কেন্দুয়া (নেত্রকোণা-৩) এলাকার শিক্ষার্থীদের জন্য সম্পূর্ণ ফ্রি ইংরেজি শিক্ষা কার্যক্রম</span>
+            </div>
+            <div class="d-none d-md-block">
+                <span class="badge bg-success">১০০% ফ্রি কোর্স</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ১. নেভিগেশন বার (Navbar) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
+                <i class="bi bi-book-half fs-2 me-2 text-primary"></i>
+                <div>
+                    <span class="en-font d-block lh-1 fs-5 text-dark">Rafique Hilaly</span>
+                    <small class="en-font text-primary fw-semibold" style="font-size: 0.78rem;">English Excellence Program</small>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fw-semibold">
+                    <li class="nav-item"><a class="nav-link active" href="#">হোম</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-initiative">প্রোগ্রাম পরিচিতি</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#modules">৪টি মূল মডিউল</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">ক্লাস গ্যালারি</a></li>
+                </ul>
+                <a href="#register" class="btn btn-primary ms-lg-3 rounded-pill px-4 fw-semibold shadow-sm">
+                    ফ্রি রেজিস্ট্রেশন করুন
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ২. হিরো সেকশন (Hero Section) -->
+    <header class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <span class="badge free-badge px-3 py-2 rounded-pill mb-3 fs-6">
+                        <i class="bi bi-stars me-1"></i> সম্পূর্ণ বিনামূল্যে (১০০% ফ্রি) ইংরেজি শেখার সুযোগ
+                    </span>
+                    <h1 class="en-font display-5 fw-bold mb-3">
+                        Rafique Hilaly English Excellence Program
+                    </h1>
+                    <p class="lead mb-4 text-light opacity-90">
+                        আটপাড়া ও কেন্দুয়ার তরুণ প্রজন্মকে বিশ্বমানের দক্ষতায় গড়ে তুলতে মাননীয় সংসদ সদস্য <strong>রফিক হিলালী</strong> মহোদয়ের বিশেষ উদ্যোগ। কোনো প্রকার কোর্স ফি ছাড়াই শিখুন আধুনিক <strong>Speaking, Listening, Reading</strong> এবং <strong>Writing</strong>।
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#modules" class="btn btn-warning text-dark fw-bold btn-lg px-4 rounded-pill shadow">
+                            কোর্স প্ল্যান দেখুন <i class="bi bi-arrow-down-circle ms-1"></i>
+                        </a>
+                        <a href="#gallery" class="btn btn-outline-light btn-lg px-4 rounded-pill">
+                            <i class="bi bi-images me-1"></i> ক্লাসের ছবি দেখুন
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" 
+                             alt="English Class" class="img-fluid rounded-4 shadow-lg border border-4 border-white border-opacity-25">
+                        <div class="bg-white text-dark p-3 rounded-3 shadow position-absolute bottom-0 start-0 m-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check-circle-fill text-success fs-3"></i>
+                                <div>
+                                    <strong class="d-block lh-1">কোনো ভর্তি বা মাসিক ফি নেই</strong>
+                                    <small class="text-muted">সবার জন্য উন্মুক্ত ফ্রি কোর্স</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ৩. উদ্যোগ ও পরিচালনা পরিচিতি (Patron & Initiative Section) -->
+    <section id="about-initiative" class="py-5">
+        <div class="container">
+            <div class="patron-section p-4 p-md-5 shadow-sm">
+                <div class="row align-items-center g-4">
+                    <div class="col-md-3 text-center">
+                        <!-- এখানে এমপি মহোদয়ের ছবি বসবে -->
+                        <img src="mp.jpeg" 
+                             alt="রফিক হিলালী এমপি" class="img-fluid rounded-circle shadow border border-4 border-primary" style="width: 170px; height: 170px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-9">
+                        <span class="badge bg-primary-subtle text-primary mb-2 px-3 py-1 rounded-pill fw-semibold">প্রধান পৃষ্ঠপোষক ও পরিচালক</span>
+                        <h3 class="fw-bold mb-1">জনাব রফিক হিলালী</h3>
+                        <p class="text-primary fw-semibold mb-3">মাননীয় সংসদ সদস্য (আটপাড়া-কেন্দুয়া, নেত্রকোণা-৩)</p>
+                        <p class="text-muted mb-0 fs-6">
+                            "ভাষার দক্ষতা আমাদের তরুণদের বিশ্বদরবারে এগিয়ে নেওয়ার সবচেয়ে বড় হাতিয়ার। অর্থের অভাবে যেন আটপাড়া-কেন্দুয়ার কোনো শিক্ষার্থী ইংরেজি শেখা থেকে বঞ্চিত না হয়, সেই লক্ষ্য নিয়েই <strong>Rafiq Hilali English Excellence Program</strong>-এর যাত্রা। এখানে প্রতিটি ক্লাস অত্যন্ত যত্নসহকারে এবং আধুনিক পদ্ধতিতে সম্পূর্ণ বিনামূল্যে পরিচালনা করা হয়।"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ৪. কোর্সের ৪টি মূল মডিউল (4 Core Modules: Speaking, Listening, Reading, Writing) -->
+    <section id="modules" class="py-5 bg-white">
+        <div class="container py-3">
+            <div class="text-center mb-5">
+                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill mb-2 fw-bold">সম্পূর্ণ ফ্রি কারিকুলাম</span>
+                <h2 class="fw-bold">আমাদের কোর্সের ৪টি প্রধান মডিউল</h2>
+                <p class="text-muted mx-auto" style="max-width: 650px;">
+                    ইংরেজিতে পূর্ণাঙ্গ দক্ষতা অর্জনের জন্য আমাদের কোর্স প্ল্যানটি চারটি ধাপে সাজানো হয়েছে। প্রতিটি মডিউলের বিস্তারিত ক্লাস প্ল্যান নিচে দেখুন।
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- মডিউল ১: English Speaking -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card module-card shadow-sm h-100 border-top border-4 border-primary">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="English Speaking" style="height: 170px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <div class="module-icon bg-primary-subtle text-primary">
+                                <i class="bi bi-mic-fill"></i>
+                            </div>
+                            <h4 class="en-font fw-bold mb-2">1. Speaking</h4>
+                            <p class="text-muted small flex-grow-1">
+                                জড়তা কাটিয়ে আত্মবিশ্বাসের সাথে ইংরেজিতে কথা বলা, দৈনন্দিন কনভারসেশন, প্রেজেন্টেশন এবং সঠিক উচ্চারণ (Pronunciation) চর্চা।
+                            </p>
+                            <ul class="list-unstyled small text-secondary mb-3">
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> লাইভ স্পিকিং পার্টনার সেশন</li>
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> পাবলিক স্পিকিং ও ডিবেট</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100 rounded-pill fw-semibold" data-bs-toggle="modal" data-bs-target="#speakingModal">
+                                ক্লাস প্ল্যান দেখুন
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- মডিউল ২: English Listening -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card module-card shadow-sm h-100 border-top border-4 border-success">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="English Listening" style="height: 170px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <div class="module-icon bg-success-subtle text-success">
+                                <i class="bi bi-headphones"></i>
+                            </div>
+                            <h4 class="en-font fw-bold mb-2">2. Listening</h4>
+                            <p class="text-muted small flex-grow-1">
+                                নেটিভ স্পিকারদের কথা সহজে বোঝা, অডিও-ভিজ্যুয়াল লিসেনিং প্র্যাকটিস এবং বিভিন্ন অ্যাকসেন্ট (British & American) আয়ত্ত করা।
+                            </p>
+                            <ul class="list-unstyled small text-secondary mb-3">
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> অডিও ক্লিপ ও পডকাস্ট চর্চা</li>
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> লিসেনিং কম্প্রিহেনশন টেস্ট</li>
+                            </ul>
+                            <button class="btn btn-outline-success w-100 rounded-pill fw-semibold" data-bs-toggle="modal" data-bs-target="#listeningModal">
+                                ক্লাস প্ল্যান দেখুন
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- মডিউল ৩: English Reading -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card module-card shadow-sm h-100 border-top border-4 border-warning">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="English Reading" style="height: 170px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <div class="module-icon bg-warning-subtle text-warning">
+                                <i class="bi bi-book-fill"></i>
+                            </div>
+                            <h4 class="en-font fw-bold mb-2">3. Reading</h4>
+                            <p class="text-muted small flex-grow-1">
+                                ইংরেজি সংবাদপত্র, আর্টিকেল ও বই দ্রুত পড়ে অর্থ বোঝার কৌশল (Skimming & Scanning) এবং ভোকাবুলারি সমৃদ্ধ করা।
+                            </p>
+                            <ul class="list-unstyled small text-secondary mb-3">
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> ডেইলি নিউজপেপার রিডিং</li>
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> স্মার্ট ভোকাবুলারি বিল্ডিং</li>
+                            </ul>
+                            <button class="btn btn-outline-warning text-dark w-100 rounded-pill fw-semibold" data-bs-toggle="modal" data-bs-target="#readingModal">
+                                ক্লাস প্ল্যান দেখুন
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- মডিউল ৪: English Writing -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card module-card shadow-sm h-100 border-top border-4 border-info">
+                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="English Writing" style="height: 170px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <div class="module-icon bg-info-subtle text-info">
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <h4 class="en-font fw-bold mb-2">4. Writing</h4>
+                            <p class="text-muted small flex-grow-1">
+                                গ্রামারের সঠিক ব্যবহার করে ফ্রি-হ্যান্ড রাইটিং, ইমেইল, অ্যাপ্লিকেশন, প্যারাগ্রাফ এবং একাডেমিক বা প্রফেশনাল রাইটিং শেখা।
+                            </p>
+                            <ul class="list-unstyled small text-secondary mb-3">
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> ক্রিয়েটিভ ও ফ্রি-হ্যান্ড রাইটিং</li>
+                                <li><i class="bi bi-check2-circle text-success me-1"></i> সিভি ও ফরমাল লেটার রাইটিং</li>
+                            </ul>
+                            <button class="btn btn-outline-info text-dark w-100 rounded-pill fw-semibold" data-bs-toggle="modal" data-bs-target="#writingModal">
+                                ক্লাস প্ল্যান দেখুন
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ৫. ক্লাসের ছবি গ্যালারি সেকশন (Class Photo Gallery) -->
+    <section id="gallery" class="py-5">
+        <div class="container py-3">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">আমাদের ক্লাসরুম ও শিক্ষার্থীদের অনুশীলনের মুহূর্ত</h2>
+                <p class="text-muted">দেখুন কীভাবে আনন্দদায়ক ও ইন্টারঅ্যাক্টিভ পরিবেশে আমাদের ক্লাসগুলো পরিচালিত হয়</p>
+            </div>
+
+            <!-- ক্যাটাগরি ফিল্টার বাটন -->
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                <button class="btn btn-primary rounded-pill px-4 filter-btn active" data-filter="all">সকল ক্লাসের ছবি</button>
+                <button class="btn btn-outline-primary rounded-pill px-4 filter-btn" data-filter="speaking">Speaking সেশন</button>
+                <button class="btn btn-outline-primary rounded-pill px-4 filter-btn" data-filter="listening">Listening ও ল্যাব</button>
+                <button class="btn btn-outline-primary rounded-pill px-4 filter-btn" data-filter="writing">Reading ও Writing</button>
+            </div>
+
+            <!-- ছবির গ্রিড -->
+            <div class="row g-4">
+                <!-- ছবি ১ -->
+                <div class="col-sm-6 col-md-4 gallery-item" data-category="speaking">
+                    <a href="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=85" class="glightbox" data-title="English Speaking Practice Session" data-description="শিক্ষার্থীরা গ্রুপে ইংরেজিতে কথোপকথন অনুশীলন করছে।">
+                        <div class="gallery-card">
+                            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="Speaking Class">
+                            <div class="gallery-overlay">
+                                <span class="badge bg-primary mb-1">Speaking ক্লাস</span>
+                                <h6 class="mb-0 fw-bold">ইংরেজি কথোপকথন ও প্রেজেন্টেশন সেশন</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- ছবি ২ -->
+                <div class="col-sm-6 col-md-4 gallery-item" data-category="listening">
+                    <a href="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=85" class="glightbox" data-title="Audio-Visual Listening Class" data-description="অডিও-ভিজ্যুয়াল মাধ্যমে ইংরেজি লিসেনিং দক্ষতা বৃদ্ধির ক্লাস।">
+                        <div class="gallery-card">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Listening Class">
+                            <div class="gallery-overlay">
+                                <span class="badge bg-success mb-1">Listening ক্লাস</span>
+                                <h6 class="mb-0 fw-bold">অডিও-ভিজ্যুয়াল লিসেনিং প্র্যাকটিস</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- ছবি ৩ -->
+                <div class="col-sm-6 col-md-4 gallery-item" data-category="writing">
+                    <a href="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=85" class="glightbox" data-title="Free-hand Writing & Reading Workshop" data-description="মেন্টরের তত্ত্বাবধানে ফ্রি-হ্যান্ড রাইটিং ও রিডিং চর্চা।">
+                        <div class="gallery-card">
+                            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=600&q=80" alt="Writing Class">
+                            <div class="gallery-overlay">
+                                <span class="badge bg-info text-dark mb-1">Reading ও Writing</span>
+                                <h6 class="mb-0 fw-bold">ফ্রি-হ্যান্ড রাইটিং ও রিডিং ওয়ার্কশপ</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- ছবি ৪ -->
+                <div class="col-sm-6 col-md-4 gallery-item" data-category="speaking">
+                    <a href="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85" class="glightbox" data-title="Interactive Debate & Group Discussion" data-description="আটপাড়া-কেন্দুয়া ব্যাচের শিক্ষার্থীদের ইংরেজি বিতর্ক প্রতিযোগিতা।">
+                        <div class="gallery-card">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80" alt="Group Discussion">
+                            <div class="gallery-overlay">
+                                <span class="badge bg-primary mb-1">Speaking ক্লাস</span>
+                                <h6 class="mb-0 fw-bold">দলগত আলোচনা ও ইংরেজি বিতর্ক চর্চা</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- ছবি ৫ -->
+                <div class="col-sm-6 col-md-4 gallery-item" data-category="writing">
+                    <a href="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=85" class="glightbox" data-title="Weekly Assessment & Feedback" data-description="সাপ্তাহিক রাইটিং পরীক্ষা ও শিক্ষার্থীদের খাতা মূল্যায়ন।">
+                        <div class="gallery-card">
+                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Exam and Writing">
+                            <div class="gallery-overlay">
+                                <span class="badge bg-warning text-dark mb-1">মূল্যায়ন ক্লাস</span>
+                                <h6 class="mb-0 fw-bold">সাপ্তাহিক রাইটিং টেস্ট ও ফিডব্যাক</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- ছবি ৬ -->
+                <div class="col-sm-6 col-md-4 gallery-item" data-category="listening">
+                    <a href="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=85" class="glightbox" data-title="Interactive Classroom Teaching" data-description="আধুনিক প্রজেক্টর ও বোর্ডের মাধ্যমে সহজবোধ্য পাঠদান।">
+                        <div class="gallery-card">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="Classroom">
+                            <div class="gallery-overlay">
+                                <span class="badge bg-success mb-1">ক্লাসরুম</span>
+                                <h6 class="mb-0 fw-bold">আধুনিক পদ্ধতিতে আনন্দদায়ক পাঠদান</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ৬. ফ্রি রেজিস্ট্রেশন সেকশন (Free Registration Section) -->
+    <section id="register" class="py-5 bg-primary text-white">
+        <div class="container py-3">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-6">
+                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-3 fw-bold">আসন সংখ্যা সীমিত - আজই যুক্ত হোন</span>
+                    <h2 class="fw-bold mb-3">সম্পূর্ণ ফ্রিতে ইংরেজি শিখতে এখনই নাম নিবন্ধন করুন</h2>
+                    <p class="opacity-90 mb-4">
+                        আটপাড়া ও কেন্দুয়া উপজেলার যেকোনো স্কুল, কলেজ বা বিশ্ববিদ্যালয়ের শিক্ষার্থী এই প্রোগ্রামে সম্পূর্ণ বিনামূল্যে অংশগ্রহণ করতে পারবেন। নিচের ফর্মটি পূরণ করলে আমাদের টিম আপনার সাথে যোগাযোগ করবে।
+                    </p>
+                    <div class="d-flex flex-column gap-2">
+                        <div><i class="bi bi-check-circle-fill text-warning me-2"></i> কোনো প্রকার রেজিস্ট্রেশন বা কোর্স ফি নেই</div>
+                        <div><i class="bi bi-check-circle-fill text-warning me-2"></i> কোর্স শেষে সার্টিফিকেট প্রদান করা হবে</div>
+                        <div><i class="bi bi-check-circle-fill text-warning me-2"></i> অভিজ্ঞ ইংরেজি প্রশিক্ষক দ্বারা ক্লাস পরিচালনা</div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card border-0 rounded-4 shadow-lg text-dark p-4">
+                        <h4 class="fw-bold mb-3 text-center text-primary">ফ্রি কোর্স রেজিস্ট্রেশন ফর্ম</h4>
+                        <form asp-controller="Home" asp-action="Register" method="post">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">শিক্ষার্থীর পূর্ণ নাম *</label>
+                                <input type="text" name="FullName" class="form-control" placeholder="আপনার নাম লিখুন" required>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">মোবাইল নম্বর *</label>
+                                    <input type="tel" name="Phone" class="form-control" placeholder="017XXXXXXXX" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">উপজেলা *</label>
+                                    <select name="Upazila" class="form-select" required>
+                                        <option value="">নির্বাচন করুন</option>
+                                        <option value="Atpara">আটপাড়া</option>
+                                        <option value="Kendua">কেন্দুয়া</option>
+                                        <option value="Other">অন্যান্য</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">বর্তমান শিক্ষাপ্রতিষ্ঠান / শ্রেণি</label>
+                                <input type="text" name="Institution" class="form-control" placeholder="যেমন: আটপাড়া ডিগ্রি কলেজ / এসএসসি পরীক্ষার্থী">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 btn-lg rounded-pill fw-bold">
+                                ফ্রি আবেদন জমা দিন <i class="bi bi-send ms-1"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ৭. ফুটার (Footer) -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h4 class="en-font fw-bold text-white mb-2">Rafique Hilaly English Excellence Program</h4>
+                    <p class="text-secondary mb-2">
+                        মাননীয় সংসদ সদস্য জনাব <strong>রফিক হিলালী</strong> মহোদয়ের উদ্যোগে আটপাড়া-কেন্দুয়া (নেত্রকোণা-৩) এলাকার শিক্ষার্থীদের জন্য পরিচালিত একটি সম্পূর্ণ অবৈতনিক (ফ্রি) ইংরেজি শিক্ষা কার্যক্রম।
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5 class="fw-bold mb-3">ক্যাম্পাস ও যোগাযোগ</h5>
+                    <p class="text-secondary mb-1"><i class="bi bi-geo-alt-fill text-primary me-2"></i>আটপাড়া ও কেন্দুয়া, নেত্রকোণা-৩, বাংলাদেশ</p>
+                    <p class="text-secondary mb-1"><i class="bi bi-telephone-fill text-primary me-2"></i>+৮৮০ ১৭০০-০০০০০০</p>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="text-center text-secondary small">
+                &copy; ২০২৬ <span class="en-font">Rafique Hilaly English Excellence Program</span>. সর্বস্বত্ব সংরক্ষিত।
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== ৪টি মডিউলের ক্লাস প্ল্যান পপ-আপ মডাল ==================== -->
+
+    <!-- ১. Speaking Modal -->
+    <div class="modal fade" id="speakingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold en-font">Speaking Module - Class Plan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>ক্লাস ১-৩:</strong> ইংরেজিতে নিজের পরিচয় দেওয়া ও প্রাথমিক জড়তা কাটানো (Ice Breaking)।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৪-৬:</strong> দৈনন্দিন জীবনের প্রয়োজনীয় কথোপকথন (Daily Conversation)।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৭-৯:</strong> সঠিক উচ্চারণ (Phonetics & Pronunciation) এবং ফ্লুয়েন্সি চর্চা।</li>
+                        <li class="list-group-item"><strong>ক্লাস ১০-১২:</strong> পাবলিক স্পিকিং, প্রেজেন্টেশন এবং ইংরেজি বিতর্ক অনুশীলন।</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ২. Listening Modal -->
+    <div class="modal fade" id="listeningModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title fw-bold en-font">Listening Module - Class Plan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>ক্লাস ১-৩:</strong> ইংরেজি ধ্বনি ও শব্দের স্পষ্ট উচ্চারণ শুনে বোঝার কৌশল।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৪-৬:</strong> ইংরেজি সংবাদ, পডকাস্ট এবং ডকুমেন্টারি শুনে মূলভাব বের করা।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৭-৯:</strong> ব্রিটিশ ও আমেরিকান অ্যাকসেন্টের পার্থক্য বোঝা।</li>
+                        <li class="list-group-item"><strong>ক্লাস ১০-১২:</strong> অডিও ক্লিপ শুনে প্রশ্নোত্তর ও নোট নেওয়ার প্র্যাকটিস।</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৩. Reading Modal -->
+    <div class="modal fade" id="readingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title fw-bold en-font">Reading Module - Class Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>ক্লাস ১-৩:</strong> দ্রুত ইংরেজি পড়ার কৌশল (Skimming & Scanning)।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৪-৬:</strong> ইংরেজি দৈনিক পত্রিকা (The Daily Star) পড়ে অর্থ বোঝার অনুশীলন।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৭-৯:</strong> অপরিচিত শব্দের অর্থ অনুমান করা ও ভোকাবুলারি বৃদ্ধি।</li>
+                        <li class="list-group-item"><strong>ক্লাস ১০-১২:</strong> বড় প্যাসেজ বা আর্টিকেল পড়ে সারমর্ম লেখা ও প্রশ্ন সমাধান।</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৪. Writing Modal -->
+    <div class="modal fade" id="writingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-dark">
+                    <h5 class="modal-title fw-bold en-font">Writing Module - Class Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>ক্লাস ১-৩:</strong> বাক্য গঠনের সঠিক নিয়ম (Sentence Structure & Basic Grammar)।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৪-৬:</strong> যেকোনো বিষয়ের ওপর নির্ভুলভাবে ফ্রি-হ্যান্ড রাইটিং চর্চা।</li>
+                        <li class="list-group-item"><strong>ক্লাস ৭-৯:</strong> ফরমাল ইমেইল, দরখাস্ত (Application) এবং সিভি (CV) লেখার নিয়ম।</li>
+                        <li class="list-group-item"><strong>ক্লাস ১০-১২:</strong> প্যারাগ্রাফ, আর্টিকেল এবং রিপোর্ট রাইটিং প্রজেক্ট।</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+    <script>
+        // GLightbox চালু করা
+        const lightbox = GLightbox({
+            selector: '.glightbox',
+            touchNavigation: true,
+            loop: true
+        });
+
+        // গ্যালারি ক্যাটাগরি ফিল্টারিং স্ক্রিপ্ট
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('btn-primary', 'active');
+                    btn.classList.add('btn-outline-primary');
+                });
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary', 'active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
